@@ -610,6 +610,9 @@ retries = 0
                     test_queues[i-1] << build_cucumber_command("REST API Group #{i}", ["@broker_api#{i}"])
                   end
                   test_queues[2] << build_rake_command("OpenShift Broker Functionals Ext", "cd /data/openshift-test/broker; rake test:functionals_ext")
+                  test_queues[0] << {:title => "Broker Domain System",              :command => "cd openshift-test/broker; rake test:domain_system_test", :options => {:retry_individually => true}}
+                  test_queues[1] << {:title => "Broker Application System",         :command => "cd openshift-test/broker; rake test:application_system_test", :options => {:retry_individually => true}}
+                  test_queues[3] << {:title => "Broker Cartridge System",           :command => "cd openshift-test/broker; rake test:cartridge_system_test",   :options => {:retry_individually => true}}
                 when 'runtime'
                   (1..3).each do |i|
                     test_queues[i-1] << build_cucumber_command("Extended Runtime Group #{i}", ["@runtime_extended#{i}"])
